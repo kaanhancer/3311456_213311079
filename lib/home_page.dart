@@ -42,7 +42,7 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         
         backgroundColor: Colors.transparent,
-        elevation: 20,
+        elevation: 0,
         leading: Builder(
           builder: (context) => IconButton(
             icon: const Padding(
