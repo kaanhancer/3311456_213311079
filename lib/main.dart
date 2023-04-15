@@ -1,5 +1,7 @@
 
 
+import 'package:apple_shop2/home_page.dart';
+import 'package:apple_shop2/shop_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

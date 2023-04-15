@@ -71,7 +71,7 @@ class _HomePageState extends State<HomePage> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25.0),
               child: Divider(
-                color: Colors.grey[800],
+                color: Colors.grey[100],
               ),
             ),
             Padding(

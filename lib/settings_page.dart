@@ -30,7 +30,6 @@ class SettingsPage extends StatelessWidget {
                   ),
                 );
                 },
-                // Profil sayfasına yönlendirme yapabilirsiniz.
               
             ),
           ),
@@ -54,7 +53,7 @@ class SettingsPage extends StatelessWidget {
               leading: Icon(Icons.language),
               title: Text('Language'),
               onTap: () {
-                // Dil ayarları sayfasına yönlendirme yapabilirsiniz.
+                
               },
             ),
           ),
@@ -64,7 +63,7 @@ class SettingsPage extends StatelessWidget {
               leading: Icon(Icons.security),
               title: Text('Safety'),
               onTap: () {
-                // Güvenlik ayarları sayfasına yönlendirme yapabilirsiniz.
+                
               },
             ),
           ),
@@ -74,7 +73,7 @@ class SettingsPage extends StatelessWidget {
               leading: Icon(Icons.help),
               title: Text('Help and Feedback'),
               onTap: () {
-                // Yardım ve geri bildirim sayfasına yönlendirme yapabilirsiniz.
+                
               },
             ),
           ),

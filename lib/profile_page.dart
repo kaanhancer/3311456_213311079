@@ -35,7 +35,6 @@ class _UserPageState extends State<UserPage> {
   @override
   void initState() {
     super.initState();
-    // Kullanıcı verilerini burada yükleyin (API'den vb.)
   }
 
   @override

@@ -57,7 +57,7 @@ class _ShopPageState extends State<ShopPage> {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 25),
             child: Text(
-              "T H İ N K  D İ F F E R E N T",
+              "T H I N K  D I F F E R E N T",
               style: TextStyle(color: Colors.grey.shade800),
             ),
           ),
