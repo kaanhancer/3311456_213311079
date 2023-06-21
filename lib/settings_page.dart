@@ -1,11 +1,9 @@
-
 import 'package:apple_shop2/profile_page.dart';
+import 'package:apple_shop2/support_help.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'notification_page.dart';
-
-
 
 class SettingsPage extends StatelessWidget {
   @override
@@ -15,29 +13,30 @@ class SettingsPage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 10,
-        title: Text('Settings',style: TextStyle(color: Colors.black),),
-        
+        title: Text(
+          'Settings',
+          style: TextStyle(color: Colors.black),
+        ),
       ),
       body: ListView(
         children: <Widget>[
           Padding(
-            padding: EdgeInsets.only(bottom: 10,left: 10),
+            padding: EdgeInsets.only(bottom: 10, left: 10),
             child: ListTile(
               leading: Icon(Icons.person),
               title: Text('Profile'),
-              onTap: (){
-                  Navigator.of(context).push(
+              onTap: () {
+                Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) => UserPage(),
                   ),
                 );
-                },
-                // Profil sayfasına yönlendirme yapabilirsiniz.
-              
+              },
+              // Profil sayfasına yönlendirme yapabilirsiniz.
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(bottom: 10,left: 10),
+            padding: const EdgeInsets.only(bottom: 10, left: 10),
             child: ListTile(
               leading: Icon(Icons.notifications),
               title: Text('Notifications'),
@@ -51,7 +50,7 @@ class SettingsPage extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(bottom: 10,left: 10),
+            padding: const EdgeInsets.only(bottom: 10, left: 10),
             child: ListTile(
               leading: Icon(Icons.language),
               title: Text('Language'),
@@ -61,7 +60,10 @@ class SettingsPage extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 10,bottom: 10,),
+            padding: const EdgeInsets.only(
+              left: 10,
+              bottom: 10,
+            ),
             child: ListTile(
               leading: Icon(Icons.security),
               title: Text('Safety'),
@@ -71,29 +73,33 @@ class SettingsPage extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 10,bottom: 10),
+            padding: const EdgeInsets.only(left: 10, bottom: 10),
             child: ListTile(
-              leading: Icon(Icons.help),
-              title: Text('Help and Feedback'),
+              leading: Icon(Icons.support_agent),
+              title: Text('Support And Help'),
               onTap: () {
-                // Yardım ve geri bildirim sayfasına yönlendirme yapabilirsiniz.
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => SupportPage(),
+                  ),
+                );
               },
             ),
           ),
           Padding(
-              padding: EdgeInsets.only(left: 10.0,bottom: 10),
-              child: ListTile(
-                leading: Icon(
-                  Icons.logout,
-                ),
-                title: Text(
-                  'Log Out',
-                ),
-                 onTap: () {
-                  FirebaseAuth.instance.signOut();
-                },
+            padding: EdgeInsets.only(left: 10.0, bottom: 10),
+            child: ListTile(
+              leading: Icon(
+                Icons.logout,
               ),
+              title: Text(
+                'Log Out',
+              ),
+              onTap: () {
+                FirebaseAuth.instance.signOut();
+              },
             ),
+          ),
         ],
       ),
     );

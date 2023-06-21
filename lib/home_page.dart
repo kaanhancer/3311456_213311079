@@ -1,7 +1,7 @@
-
 import 'package:apple_shop2/phone_detail_page.dart';
 import 'package:apple_shop2/profile_page.dart';
 import 'package:apple_shop2/settings_page.dart';
+import 'package:apple_shop2/support_help.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -102,7 +102,7 @@ class _HomePageState extends State<HomePage> {
                     padding: EdgeInsets.only(left: 25.0),
                     child: ListTile(
                       leading: Icon(
-                        FontAwesomeIcons.euroSign,
+                        Icons.monetization_on,
                         color: Colors.white,
                       ),
                       title: Text(
@@ -213,6 +213,26 @@ class _HomePageState extends State<HomePage> {
                         Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: (context) => CommentPage(),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 25.0),
+                    child: ListTile(
+                      leading: Icon(
+                        Icons.support_agent,
+                        color: Colors.white,
+                      ),
+                      title: Text(
+                        'Support And Help',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => SupportPage(),
                           ),
                         );
                       },
