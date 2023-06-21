@@ -2,12 +2,16 @@
 import 'package:apple_shop2/phone_detail_page.dart';
 import 'package:apple_shop2/profile_page.dart';
 import 'package:apple_shop2/settings_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import '../comment_page.dart';
+
+import 'Api.dart';
 import 'about_page.dart';
 import 'cart_page.dart';
 import 'components/google_bar.dart';
-import 'login_page.dart';
 import 'notification_page.dart';
 import 'shop_page.dart';
 
@@ -40,14 +44,13 @@ class _HomePageState extends State<HomePage> {
         onTabChange: (index) => navigateBottomBar(index),
       ),
       appBar: AppBar(
-        
         backgroundColor: Colors.transparent,
-        elevation: 0,
+        elevation: 10,
         leading: Builder(
           builder: (context) => IconButton(
             icon: const Padding(
-              padding:  EdgeInsets.only(left: 12),
-              child:  Icon(Icons.menu, color: Colors.black),
+              padding: EdgeInsets.only(left: 12),
+              child: Icon(Icons.menu, color: Colors.black),
             ),
             onPressed: () {
               Scaffold.of(context).openDrawer();
@@ -57,169 +60,204 @@ class _HomePageState extends State<HomePage> {
       ),
       drawer: Drawer(
         backgroundColor: Colors.grey.shade900,
-        child: Column(
-          mainAxisAlignment:MainAxisAlignment.spaceBetween ,
-          children: [
-            Column(
-              children: [
-                   DrawerHeader(
-              child: Image.asset(
-                'images/apple6.png',
-                color: Colors.yellow.shade900,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25.0),
-              child: Divider(
-                color: Colors.grey[100],
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 25.0),
-              child: ListTile(
-                leading: Icon(
-                  Icons.home,
-                  color: Colors.white,
-                ),
-                title: Text(
-                  'Home',
-                  style: TextStyle(color: Colors.white),
-                ),
-                onTap: (){
-                  Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => HomePage(),
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                children: [
+                  DrawerHeader(
+                    child: Image.asset(
+                      'images/apple6.png',
+                      color: Colors.yellow.shade900,
+                    ),
                   ),
-                );
-                },
-              ),
-            ),
-             Padding(
-              padding: EdgeInsets.only(left: 25.0),
-              child: ListTile(
-                leading: Icon(
-                  Icons.person,
-                  color: Colors.white,
-                ),
-                title: Text(
-                  'User',
-                  style: TextStyle(color: Colors.white),
-                ),
-                 onTap: (){
-                  Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => UserPage(),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                    child: Divider(
+                      color: Colors.grey[100],
+                    ),
                   ),
-                );
-                },
-                
+                  Padding(
+                    padding: EdgeInsets.only(left: 25.0),
+                    child: ListTile(
+                      leading: Icon(
+                        Icons.home,
+                        color: Colors.white,
+                      ),
+                      title: Text(
+                        'Home',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => HomePage(),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 25.0),
+                    child: ListTile(
+                      leading: Icon(
+                        FontAwesomeIcons.euroSign,
+                        color: Colors.white,
+                      ),
+                      title: Text(
+                        'Currency Converter',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => CurrencyConverterScreen(),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 25.0),
+                    child: ListTile(
+                      leading: Icon(
+                        Icons.person,
+                        color: Colors.white,
+                      ),
+                      title: Text(
+                        'User',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => UserPage(),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 25.0),
+                    child: ListTile(
+                      leading: Icon(
+                        Icons.settings,
+                        color: Colors.white,
+                      ),
+                      title: Text(
+                        'Settings',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => SettingsPage(),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 25.0),
+                    child: ListTile(
+                      leading: Icon(
+                        Icons.app_settings_alt_outlined,
+                        color: Colors.white,
+                      ),
+                      title: Text(
+                        'Technicial Specifications',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => PhoneDetail(),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 25.0),
+                    child: ListTile(
+                      leading: Icon(
+                        Icons.notifications,
+                        color: Colors.white,
+                      ),
+                      title: Text(
+                        'Notification and Theme Settings',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => NotificationPage(),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 25.0),
+                    child: ListTile(
+                      leading: Icon(
+                        Icons.comment,
+                        color: Colors.white,
+                      ),
+                      title: Text(
+                        'Comments',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => CommentPage(),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 25.0),
+                    child: ListTile(
+                      leading: Icon(
+                        Icons.info,
+                        color: Colors.white,
+                      ),
+                      title: Text(
+                        'About',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => AboutPage(),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ],
               ),
-            ),
               Padding(
-              padding: EdgeInsets.only(left: 25.0),
-              child: ListTile(
-                leading: Icon(
-                  Icons.settings,
-                  color: Colors.white,
-                ),
-                title: Text(
-                  'Settings',
-                  style: TextStyle(color: Colors.white),
-                ),
-                 onTap: (){
-                  Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => SettingsPage(),
+                padding: EdgeInsets.only(left: 25.0, bottom: 25.0),
+                child: ListTile(
+                  leading: Icon(
+                    Icons.logout,
+                    color: Colors.white,
                   ),
-                );
-                },
-              ),
-            ),
-             Padding(
-              padding: EdgeInsets.only(left: 25.0),
-              child: ListTile(
-                leading: Icon(
-                  Icons.app_settings_alt_outlined,
-                  color: Colors.white,
-                ),
-                title: Text(
-                  'Technicial Specifications',
-                  style: TextStyle(color: Colors.white),
-                ),
-                 onTap: (){
-                  Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => PhoneDetail(),
+                  title: Text(
+                    'Log Out',
+                    style: TextStyle(color: Colors.white),
                   ),
-                );
-                },
+                  onTap: () {
+                    FirebaseAuth.instance.signOut();
+                  },
+                ),
               ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 25.0),
-              child: ListTile(
-                leading: Icon(
-                  Icons.notifications,
-                  color: Colors.white,
-                ),
-                title: Text(
-                  'Notification and Theme Settings',
-                  style: TextStyle(color: Colors.white),
-                ),
-                 onTap: (){
-                  Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => NotificationPage(),
-                  ),
-                );
-                },
-              ),
-            ),
-            
-              Padding(
-              padding: EdgeInsets.only(left: 25.0),
-              child: ListTile(
-                leading: Icon(
-                  Icons.info,
-                  color: Colors.white,
-                ),
-                title: Text(
-                  'About',
-                  style: TextStyle(color: Colors.white),
-                ),
-                 onTap: (){
-                  Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => AboutPage(),
-                  ),
-                );
-                },
-              ),
-            ),
-              ],
-            ),
-         
-              Padding(
-              padding: EdgeInsets.only(left: 25.0, bottom: 25.0),
-              child: ListTile(
-                leading: Icon(
-                  Icons.logout,
-                  color: Colors.white,
-                ),
-                title: Text(
-                  'Log Out',
-                  style: TextStyle(color: Colors.white),
-                ),
-                 onTap: (){
-                  Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => LoginPage(),
-                  ),
-                );
-                },
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
       body: _pages[_selectedIndex],

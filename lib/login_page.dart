@@ -1,11 +1,11 @@
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
-import 'home_page.dart';
 
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+  final VoidCallback showRegisterPage;
+  const LoginPage({super.key,required this.showRegisterPage});
 
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -13,14 +13,60 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
-  final _usernameController = TextEditingController();
+  final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   bool _rememberMe = false;
+
+  Future signUserIn() async {
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: _emailController.text.trim(),
+        password: _passwordController.text.trim(),
+      );
+    } catch (e) {
+      String errorMessage = 'An error occurred.';
+
+      if (e is FirebaseAuthException) {
+        if (e.code == 'user-not-found') {
+          errorMessage = 'User not found.';
+        } else if (e.code == 'wrong-password') {
+          errorMessage = 'Wrong password.';
+        }
+        // Diğer hata durumlarını da buraya ekleyebilirsiniz.
+      }
+
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Error'),
+            content: Text(errorMessage),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
+    }
+  }
+
+  
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       
       body: Container(
         decoration: BoxDecoration(
@@ -49,7 +95,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   SizedBox(height: 30.0),
                   TextFormField(
-                    controller: _usernameController,
+                    controller: _emailController,
                     keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
                       filled: true,
@@ -127,33 +173,9 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   SizedBox(height: 20.0),
                   ElevatedButton(
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        // Kullanıcı ad                    String username = _usernameController.text;
-                        String password = _passwordController.text;
-                        String username = _usernameController.text;
-                        // Kullanıcı doğrulama işlemi
-                        // Eğer doğruysa giriş yapılacak
-                        // Değilse hata mesajı verilecek
-                        if (username == "apple" && password == "1") {
-                          Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => HomePage(),
-                  ),
-                );
-        
-                          // Giriş işlemi
-                        } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content:
-                                  Text("Username or password is incorrect!"),
-                              backgroundColor: Colors.red,
-                            ),
-                          );
-                        }
-                      }
-                    },
+                    onPressed: 
+                      signUserIn,
+                    
                     style: ElevatedButton.styleFrom(
                       primary: Colors.black,
                       shape: RoundedRectangleBorder(
@@ -220,7 +242,7 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                       TextButton(
-                        onPressed: () {},
+                        onPressed: widget.showRegisterPage,
                         child: Text(
                           "Sign up",
                           style: TextStyle(

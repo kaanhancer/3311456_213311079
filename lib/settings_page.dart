@@ -1,9 +1,11 @@
 
 import 'package:apple_shop2/profile_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import 'login_page.dart';
 import 'notification_page.dart';
+
+
 
 class SettingsPage extends StatelessWidget {
   @override
@@ -30,6 +32,7 @@ class SettingsPage extends StatelessWidget {
                   ),
                 );
                 },
+                // Profil sayfasına yönlendirme yapabilirsiniz.
               
             ),
           ),
@@ -53,7 +56,7 @@ class SettingsPage extends StatelessWidget {
               leading: Icon(Icons.language),
               title: Text('Language'),
               onTap: () {
-                
+                // Dil ayarları sayfasına yönlendirme yapabilirsiniz.
               },
             ),
           ),
@@ -63,7 +66,7 @@ class SettingsPage extends StatelessWidget {
               leading: Icon(Icons.security),
               title: Text('Safety'),
               onTap: () {
-                
+                // Güvenlik ayarları sayfasına yönlendirme yapabilirsiniz.
               },
             ),
           ),
@@ -73,7 +76,7 @@ class SettingsPage extends StatelessWidget {
               leading: Icon(Icons.help),
               title: Text('Help and Feedback'),
               onTap: () {
-                
+                // Yardım ve geri bildirim sayfasına yönlendirme yapabilirsiniz.
               },
             ),
           ),
@@ -86,12 +89,8 @@ class SettingsPage extends StatelessWidget {
                 title: Text(
                   'Log Out',
                 ),
-                 onTap: (){
-                  Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => LoginPage(),
-                  ),
-                );
+                 onTap: () {
+                  FirebaseAuth.instance.signOut();
                 },
               ),
             ),
